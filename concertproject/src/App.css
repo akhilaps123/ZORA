@@ -1,0 +1,134 @@
+/* ConcertDetail.css */
+
+.zora-detail-container {
+    background-color: #fcfcfc;
+    min-height: 100vh;
+}
+
+/* Hero Section with Blur Effect */
+.detail-hero {
+    position: relative;
+    padding: 100px 0;
+    overflow: hidden;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+}
+
+.hero-blur-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.4;
+    filter: blur(30px);
+    z-index: 1;
+    transform: scale(1.1);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.main-poster {
+    border: 1px solid rgba(255,255,255,0.2);
+    min-height: 400px;
+    object-fit: cover;
+}
+
+/* Sidebar Styling */
+.booking-sidebar-card {
+    position: sticky;
+    top: 100px;
+}
+
+.zora-loader {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    letter-spacing: 5px;
+    color: #FF007A;
+}
+/* ZORA Theme Colors */
+:root {
+  --zora-pink: #FF007A;
+  --zora-purple: #8000FF;
+  --zora-dark: #121212;
+}
+
+/* Gradient Text */
+.zora-text-gradient {
+  background: linear-gradient(45deg, var(--zora-pink), var(--zora-purple));
+  /* -webkit-background-clip: text; */
+  -webkit-text-fill-color: transparent;
+}
+
+.zora-pink {
+    color: var(--zora-pink) !important;
+}
+
+/* Modern Card Design */
+.zora-card {
+  background: transparent;
+  transition: transform 0.3s ease;
+}
+
+.zora-card:hover {
+  transform: translateY(-8px);
+}
+
+.zora-img {
+  height: 320px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.zora-card:hover .zora-img {
+  transform: scale(1.1);
+}
+
+/* Date Tag Overlay */
+.zora-date-tag {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #000;
+  padding: 5px 12px;
+  border-radius: 12px;
+  text-align: center;
+  line-height: 1.2;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Primary ZORA Button */
+.zora-btn-primary {
+  background: var(--zora-dark);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.zora-btn-primary:hover {
+  background: var(--zora-pink);
+  color: white;
+  box-shadow: 0 8px 15px rgba(255, 0, 122, 0.3);
+}
+
+/* Scrollbar refinement for a cleaner look */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}

@@ -1,0 +1,49 @@
+body {
+  background-color: #f8f9fa;
+}
+
+h2 {
+  color: #343a40;
+}
+
+.card {
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.btn {
+  margin-top: 5px;
+}
+/* Ticket Card Styling */
+.booking-card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.booking-card:hover {
+    transform: scale(1.01);
+}
+
+/* Create the dashed "tear-off" line */
+.border-dashed {
+    border-style: dashed !important;
+    position: relative;
+}
+
+/* Semi-circle cutouts (Optional, for extra detail) */
+.border-dashed::before, .border-dashed::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #f8f9fa; /* Match the page background color */
+    border-radius: 50%;
+    left: -10px;
+}
+
+.border-dashed::before { top: -10px; }
+.border-dashed::after { bottom: -10px; }

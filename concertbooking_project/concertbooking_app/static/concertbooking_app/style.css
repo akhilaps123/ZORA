@@ -1,0 +1,317 @@
+/* /* ---------------- Sidebar ----------------
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100%;
+    background-color: #0f0f0f;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.4);
+    transition: all 0.3s;
+}
+
+.sidebar-header {
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ff3d4a;
+}
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    color: #b0b0b0;
+    padding: 12px 20px;
+    text-decoration: none;
+    margin-bottom: 5px;
+    border-radius: 0 8px 8px 0;
+    transition: all 0.3s;
+}
+
+.sidebar a .icon {
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+.sidebar a:hover {
+    background-color: #1f1f1f;
+    color: #fff;
+}
+
+.sidebar a.active {
+    background-color: #ff3d4a;
+    color: #fff;
+}
+
+/* -----------------------------
+   Main Content
+----------------------------- */
+
+
+/* .main {
+    max-width: 600px;
+    margin: 50px auto;
+} */
+/* -----------------------------
+   Topbar
+----------------------------- */
+
+
+/* 
+.topbar {
+    background-color: #1e1e1e;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+
+
+
+.topbar .title {
+    color: #ff3d4e;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* -----------------------------
+   Concert Grid & Cards
+----------------------------- */
+/* .concert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.concert-card {
+    background-color: #1f1f1f;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.concert-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+}
+
+.concert-image img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
+.concert-info {
+    padding: 15px;
+} */
+
+/* .concert-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ff3d4a;
+    margin-bottom: 5px;
+} */
+
+/* .concert-date,
+.concert-venue,
+.concert-price,
+.concert-tickets {
+    font-size: 0.9rem;
+    margin: 2px 0;
+    color: #ccc;
+} */
+
+/* .concert-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 5px;
+} */ 
+/* ---------------- Form Card ---------------- */
+
+/* .form-card {
+    background-color: #1e1e1e;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+
+.form-title {
+    color: #ff3d4e;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+} */
+
+
+/* .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: none;
+    background-color: #2a2a2a;
+    color: #fff;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border: 1px solid #ff3d4a;
+} */
+
+/* Buttons */
+
+/* .btn-primary {
+    background-color: #ff3d4e;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.btn-primary:hover {
+    background-color: #e63245;
+}
+.btn-secondary {
+    width: 100%;
+    margin-top: 10px;
+}
+
+
+
+.btn-secondary:hover {
+    background-color: #444;
+}
+body {
+    background-color: #121212;
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+}
+.main {
+    max-width: 600px;
+    margin: 50px auto;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    background-color: #2a2a2a;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+}
+
+.form-control:focus {
+    background-color: #2a2a2a;
+    outline: 2px solid #ff3d4e;
+    color: #fff;
+}
+
+ */
+
+/* :root {
+    --sidebar-width: 260px;
+    --primary-color: #4361ee;
+    --bg-light: #f8f9fa;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    display: flex;
+}
+
+/* Sidebar Styling */
+/* .sidebar {
+    width: var(--sidebar-width);
+    height: 100vh; */
+    /* background: #ffffff;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+} */
+/* 
+.sidebar-header {
+    padding: 2rem 1.5rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+} */
+
+/* .menu-link {
+    padding: 0.8rem 1.5rem;
+    display: block;
+    color: #6c757d;
+    text-decoration: none;
+    transition: all 0.2s;
+} */
+
+/* .menu-link:hover, .menu-link.active {
+    background: #f0f3ff;
+    color: var(--primary-color);
+    border-right: 4px solid var(--primary-color);
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding: 1.5rem;
+    border-top: 1px solid #eee;
+} */
+
+/* .logout-link {
+    color: #dc3545;
+    text-decoration: none;
+    font-weight: 600;
+} */
+
+/* Layout */
+/* .main-content {
+    margin-left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    padding: 2rem;
+}
+
+.topbar {
+    padding-bottom: 2rem;
+} */
+
+/* Image Thumbnail in Table */
+/* .img-thumbnail-wrapper img {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+} */
+
+/* .no-image-placeholder {
+    width: 45px;
+    height: 45px;
+    background: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    color: #adb5bd;
+} */
+
+ 

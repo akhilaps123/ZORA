@@ -1,0 +1,50 @@
+/* MyBookings.css */
+
+.zora-ticket-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+
+.ticket-img-container {
+    width: 100%;
+    max-width: 250px;
+}
+
+.ticket-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 180px;
+}
+
+.status-badge {
+    background: #e6fffa;
+    color: #2d3748;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border: 1px solid #b2f5ea;
+}
+
+.ticket-notch {
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background: #f8f9fa; /* Matches your body background color */
+    border-radius: 50%;
+    box-shadow: inset -5px 0 5px rgba(0,0,0,0.02);
+}
+
+@media (max-width: 768px) {
+    .ticket-img-container {
+        max-width: 100%;
+    }
+    .ticket-notch { display: none; }
+}
