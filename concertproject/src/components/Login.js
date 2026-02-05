@@ -20,52 +20,60 @@ function Login() {
     e.preventDefault();
     setError("");
     try {
-      // const response = await axios.post("http://127.0.0.1:8000/token/", {
-      //   username: credentials.username,
-      //   // email: credentials.email,
-      //   password: credentials.password,
-      // });
-      const response = await axios.post("http://127.0.0.1:8000/login/",
-  {
-    username: credentials.username,
-    password: credentials.password,
-  }
+      const response = await axios.post("http://127.0.0.1:8000/login/",{
+        username: credentials.username,
+        // email: credentials.email,
+        password: credentials.password,
+      });
+      // const response = await axios.post("http://127.0.0.1:8000/login/",
+//   {
+//     username: credentials.username,
+//     password: credentials.password,
+//   }
+// );???????????????????????????????????????????????????
+
+const isStaff = response.data.is_staff;
+
+localStorage.setItem("access", response.data.access);
+localStorage.setItem("refresh", response.data.refresh);
+localStorage.setItem("is_staff", isStaff ? "true" : "false");
+localStorage.setItem(
+  "user",
+  JSON.stringify({
+    username: response.data.username,
+    email: response.data.email,
+  })
 );
 
-      const isStaff = response.data.is_staff === true;
-      localStorage.setItem("access", response.data.access);
-      localStorage.setItem("refresh", response.data.refresh);
-      localStorage.setItem("is_staff", isStaff);
 
-      // if (isStaff) {
-      //   window.location.href = "http://127.0.0.1:8000"; // Redirect to admin dashboard
-      // } else {
-      //   navigate("/concert");
-      // }
 
       if (isStaff) {
-  // 🔥 STEP 4: Create Django session
-  await axios.post(
-    "http://127.0.0.1:8000/create-session/",
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${response.data.access}`,
-      },
-      withCredentials: true, // VERY IMPORTANT
-    }
-  );
+         window.location.href = "http://127.0.0.1:8000/"; // Redirect to admin dashboard
+     }  else { navigate("/concert"); } 
+  } catch (err) { 
+      setError("Invalid credentials. Please try again."); } };
+      // ??????????????????????????????????????????????????????????????
 
-  // 🔁 Now Django knows the admin
-    window.location.href = "http://127.0.0.1:8000/admin-dashboard/";
-  } else {
-  navigate("/concert");
-  }
+  //     if (isStaff) {
+  // // 🔥 STEP 4: Create Django session
+  // await axios.post(
+  //   "http://127.0.0.1:8000/create-session/",
+  //   {},
+  //   {
+  //     headers: {
+  //       Authorization: `Bearer ${response.data.access}`,
+  //     },
+  //     withCredentials: true, // VERY IMPORTANT
+  //   }
+  // );
 
-    } catch (err) {
-      setError("Invalid credentials. Please try again.");
-    }
-  };
+  // // 🔁 Now Django knows the admin
+  //   window.location.href = "http://127.0.0.1:8000/admin/";
+  // } else {
+  // navigate("/concert");
+  // }
+
+   
 
   return (
     <div className="zora-auth-wrapper">

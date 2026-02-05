@@ -17,14 +17,19 @@ class ConcertSerializer(serializers.ModelSerializer):
 
 class BookingSerializer(serializers.ModelSerializer):
     concert = ConcertSerializer(read_only=True)
+    # serializer = ConcertSerializer(
+    # concerts,
+    # many=True,
+    # context={"request": request}
+# )
     
     class Meta:
         model = Booking
         fields = "__all__"
 
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
-        token['is_staff'] = user.is_staff
-        return token
+# class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+#     @classmethod
+#     def get_token(cls, user):
+#         token = super().get_token(user)
+#         token['is_staff'] = user.is_staff
+#         return token

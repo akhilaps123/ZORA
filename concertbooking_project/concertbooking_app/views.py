@@ -17,10 +17,17 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Sum
 
 from django.contrib.auth.decorators import user_passes_test,login_required
-from .permissions import IsAdmin
-from django.contrib.auth import login
-from django.http import JsonResponse
-from django.http import HttpResponseForbidden
+from django.contrib.auth import logout
+
+import io
+import qrcode
+from django.template.loader import get_template
+from django.http import HttpResponse
+from xhtml2pdf import pisa
+# from .permissions import IsAdmin
+# from django.contrib.auth import login
+# from django.http import JsonResponse
+# from django.http import HttpResponseForbidden
 # Decorator to allow only admin (staff) users
 # def admin_required(view_func):
 #     return user_passes_test(
@@ -45,12 +52,12 @@ from django.http import HttpResponseForbidden
 
 #     login(request, user)  # 🔥 creates Django session
 #     return Response({"message": "Admin session created"})
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def create_django_session(request):
-    user = request.user
-    login(request, user)  # creates Django session
-    return JsonResponse({"message": "Session created"})
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def create_django_session(request):
+#     user = request.user
+#     login(request, user)  # creates Django session
+#     return JsonResponse({"message": "Session created"})
 
 
 
@@ -76,16 +83,57 @@ def create_django_session(request):
 #     serializer = ConcertSerializer(concerts, many=True)
 #     return Response(serializer.data)
     # return render(request, "concert_list.html", {"concerts": concerts})
+
+def concert_list(request): 
+    concerts = Concert.objects.all() 
+    return render(request, "concert_list.html", {"concerts": concerts})
+
 def is_admin(user):
     return user.is_active and user.is_staff or user.is_superuser
 
 #for admin
 # @staff_member_required(login_url='http://localhost:3000')
-@login_required(login_url="/admin/login/")
-@user_passes_test(is_admin)
-def concert_list(request):
-    concerts = Concert.objects.all()
-    return render(request, "concert_list.html", {"concerts": concerts})
+# @login_required(login_url="/admin/login/")
+# @user_passes_test(is_admin)
+
+
+
+# @login_required(login_url="/admin/login/")
+# @user_passes_test(is_admin)
+def add_concert(request):
+    if request.method == "POST":
+        form = ConcertForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("concert_list")
+    else:
+        form = ConcertForm()
+    return render(request, "add_concert.html", {"form": form})
+
+# @login_required(login_url="/admin/login/")
+# @user_passes_test(is_admin)
+def edit_concert(request, id):
+    concert = get_object_or_404(Concert, id=id)
+    form = ConcertForm(request.POST or None, request.FILES or None, instance=concert)
+    if form.is_valid():
+        form.save()
+        return redirect("concert_list")
+    return render(request, "add_concert.html", {"form": form})
+
+def delete_concert(request, id): 
+    concert = get_object_or_404(Concert, id=id) 
+    concert.delete() 
+    return redirect("concert_list")
+
+@api_view(['GET']) 
+@permission_classes([AllowAny]) # public access 
+def user_concert_list(request): 
+    concerts = Concert.objects.all() 
+    serializer = ConcertSerializer(concerts, many=True, context={"request": request}) 
+    return Response(serializer.data)
+
+
+
     # serializer = ConcertSerializer(concerts, many=True, context={"request": request})
     # return Response(serializer.data)
 
@@ -96,42 +144,44 @@ def concert_list(request):
 #     concerts = Concert.objects.all()
 #     return render(request, "concert_list.html", {"concerts": concerts})
 # @admin_required
-@login_required(login_url="/admin/login/")
-@user_passes_test(is_admin)
-def add_concert(request):
-    if request.method == "POST":
-        form = ConcertForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect("concert_list")
-    else:
-        form = ConcertForm()
-    return render(request, "add_concert.html", {"form": form})
+# @login_required(login_url="/admin/login/")
+# @user_passes_test(is_admin)
+# def add_concert(request):
+#     if request.method == "POST":
+#         form = ConcertForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             return redirect("concert_list")
+#     else:
+#         form = ConcertForm()
+#     return render(request, "add_concert.html", {"form": form})
 # @admin_required
-@login_required(login_url="/admin/login/")
-@user_passes_test(is_admin)
-def edit_concert(request, id):
-    concert = get_object_or_404(Concert, id=id)
-    form = ConcertForm(request.POST or None, request.FILES or None, instance=concert)
-    if form.is_valid():
-        form.save()
-        return redirect("concert_list")
-    return render(request, "add_concert.html", {"form": form})
-# @admin_required
-@login_required(login_url="/admin/login/")
-@user_passes_test(is_admin)
-def delete_concert(request, id):
-    if request.method == "POST":
-        concert = get_object_or_404(Concert, id=id)
-        concert.delete()
-    return redirect("concert_list")
 
-@api_view(['GET']) 
-@permission_classes([AllowAny])  # public access
-def user_concert_list(request):
-    concerts = Concert.objects.all()
-    serializer = ConcertSerializer(concerts, many=True, context={"request": request})
-    return Response(serializer.data)
+# @login_required(login_url="/admin/login/")
+# @user_passes_test(is_admin)
+# def edit_concert(request, id):
+#     concert = get_object_or_404(Concert, id=id)
+#     form = ConcertForm(request.POST or None, request.FILES or None, instance=concert)
+#     if form.is_valid():
+#         form.save()
+#         return redirect("concert_list")
+#     return render(request, "add_concert.html", {"form": form})
+
+# @admin_required
+# @login_required(login_url="/admin/login/")
+# @user_passes_test(is_admin)
+# def delete_concert(request, id):
+#     if request.method == "POST":
+#         concert = get_object_or_404(Concert, id=id)
+#         concert.delete()
+#     return redirect("concert_list")
+
+# @api_view(['GET']) 
+# @permission_classes([AllowAny])  # public access
+# def user_concert_list(request):
+#     concerts = Concert.objects.all()
+#     serializer = ConcertSerializer(concerts, many=True, context={"request": request})
+#     return Response(serializer.data)
 
 @api_view(['GET'])
 @permission_classes([AllowAny])  # <- anyone can view concert details
@@ -170,15 +220,24 @@ def register(request):
        )
 
 @api_view(['POST'])
-@permission_classes([AllowAny]) 
+@permission_classes([AllowAny])
 def login_view(request):
     username = request.data.get('username')
-    email = request.data.get('email')
     password = request.data.get('password')
+
+    if not username or not password:
+        return Response(
+            {"error": "Username and password are required"},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
     user = authenticate(username=username, password=password)
 
     if user is None:
-        return Response({"error": "Invalid credentials"}, status=401)
+        return Response(
+            {"error": "Invalid credentials"},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
 
     refresh = RefreshToken.for_user(user)
 
@@ -187,8 +246,38 @@ def login_view(request):
         "refresh": str(refresh),
         "is_staff": user.is_staff or user.is_superuser,
         "username": user.username,
-        "email": user.email
+        "email": user.email,
     })
+
+# def login_view(request):
+#     if request.method == "POST":
+#         user = authenticate(
+#             request,
+#             username=request.POST['username'],
+#             password=request.POST['password']
+#         )
+#         if user:
+#             login(request, user)
+#             return redirect('/')
+#     return render(request, 'login.html')
+# def login_view(request):
+#     username = request.data.get('username')
+#     # email = request.data.get('email')
+#     password = request.data.get('password')
+#     user = authenticate(username=username, password=password)
+
+#     if user is None:
+#         return Response({"error": "Invalid credentials"}, status=401)
+
+#     refresh = RefreshToken.for_user(user)
+
+#     return Response({
+#         "access": str(refresh.access_token),
+#         "refresh": str(refresh),
+#         "is_staff": user.is_staff or user.is_superuser,
+#         "username": user.username,
+#         "email": user.email
+#     })
 
 # @api_view(['POST'])
 # @permission_classes([IsAuthenticated])
@@ -223,11 +312,16 @@ def login_view(request):
 #     serializer = ConcertSerializer(concerts,many=True,context={"request": request})
 #     return Response(serializer.data)
 @api_view(['GET'])
-@permission_classes([IsAuthenticated,IsAdminUser])
+@permission_classes([IsAuthenticated])
 def concert_list_api(request):
     concerts = Concert.objects.all()
-    seerializer = ConcertSerializer(concert, context={'request': request})
+    serializer = ConcertSerializer(
+        concerts,
+        many=True,                 # ✅ THIS IS THE FIX
+        context={'request': request}
+    )
     return Response(serializer.data)
+
 
 
 
@@ -365,7 +459,38 @@ def make_payment(request):
         status=status.HTTP_200_OK
     )
 
+@api_view(['GET'])
 
+@permission_classes([AllowAny])
+def booking_qr_pdf(request, booking_id):
+    booking = Booking.objects.get(id=booking_id)
+
+    qr = qrcode.make(str(booking.id))
+    qr_path = f"{settings.MEDIA_ROOT}/qr.png"
+    qr.save(qr_path)
+
+    html = f"""
+    <h2>Concert Ticket</h2>
+    <p>Booking ID: {booking.id}</p>
+    <p>Concert: {booking.concert.name}</p>
+    <img src="{qr_path}" width="150"/>
+    """
+
+    response = HttpResponse(content_type="application/pdf")
+    pisa.CreatePDF(html, dest=response)
+    return response
+
+def logout_view(request):
+    logout(request)
+    return redirect('http://localhost:3000/login')
+
+
+# @api_view(["GET"])
+# @permission_classes([IsAuthenticated])
+# def booking_detail(request, id):
+#     booking = Booking.objects.get(id=id, user=request.user)
+#     serializer = BookingSerializer(booking)
+#     return Response(serializer.data)
 
 
 # ---------------- BOOKING APIs ----------------

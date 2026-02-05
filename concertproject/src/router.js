@@ -9,6 +9,7 @@ import MyBookings from "./components/MyBookings";
 import ConcertDetail from "./components/ConcertDetail";
 import Payment from "./components/Payment";
 import Home from "./components/home";
+// import BookingQR from "./components/BookingQR";
 // import ProtectedRoute from "./components/ProtectedRoute";
 
 
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       { path: "/my-bookings", element: <MyBookings/>},
       { path: "/concert/:id", element: <ConcertDetail/> },
       { path: "/make-payment/:bookingId",element: <Payment/>},
+      // { path: "/booking-qr/:id", element: <BookingQR />}
       // {path: "/concert",element: (<ProtectedRoute><Concertlist /></ProtectedRoute>)},
     ],
   },
